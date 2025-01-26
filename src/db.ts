@@ -27,7 +27,7 @@ export const connect = async () => {
     }
 
     cached.promise = cached.promise || mongoose.connect(MONGODB_URI, {
-        dbName: "nextjs-clerk-mongoose-template",
+        dbName: "nextjsclerkmongoosetemplate",
         bufferCommands: false,
         connectTimeoutMS: 30000,
     });
