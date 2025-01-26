@@ -1,103 +1,233 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Starter Authentication Kit with Next.js, Tailwind CSS, Clerk and MongoDB using Mongoose
 
-## Getting Started
+This is a complete starter kit for building authentication-powered applications using **Next.js**, **Tailwind CSS**, **Clerk** and **MongoDB** with **Mongoose** for database management. It comes pre-configured with user authentication, database integration, and a customizable UI to help you get started quickly.
 
-First, run the development server:
+<br>
+
+## Features
+
+- **Next.js** for fast and modern React-based web applications.
+- **Tailwind CSS** for easy and customizable styling.
+- **Clerk** for user authentication (sign-in, sign-up, and user management).
+- **MongoDB** as the database.
+- **Mongoose** for schema-based object modeling.
+- Pre-configured routes and middleware for authentication.
+- Custom sign-in and sign-up pages.
+- Scalable project structure.
+
+<br>
+
+## Prerequisites
+
+- **Node.js** (v18+ recommended)
+- **Bun** (package manager)
+- **MongoDB** (running instance or cloud database, e.g., MongoDB Atlas)
+- **Clerk Account** ([Sign up for Clerk](https://clerk.dev))
+
+<br>
+
+## How to use the template
+
+1. Clone the repository `git clone https://github.com/ParnaRoyChowdhury777/next-tailwind-clerk-mongoose-mongodb.git` or download the zip file.
+2. Open the project in your favorite code editor.
+3. Navigate to the project directory cd next-tailwind-clerk-mongoose-mongodb.
+4. Install the dependencies `bun install`.
+5. Create a .env file in the root directory which contains the following:
+
+   ```bash
+   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_YOUR_CLERK_PUBLISHABLE_KEY
+   CLERK_SECRET_KEY=sk_test_YOUR_CLERK_SECRET_KEY
+
+   NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+   NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+
+   MONGODB_URI=<Your MongoDb URI>
+
+   WEBHOOK_SECRET=<Your Clerk Webhook Secret>
+   ```
+6. Start the development server `bun run dev`
+7. Open http://localhost:3000 in your browser
+
+<br>
+
+## Installation
+
+### 1. Create a New Next.js Application
+
+Run the following command to bootstrap a Next.js app with the required configuration:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+bun create next-app <app_name>
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+When prompted:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Use TypeScript: **Yes**
+- Use ESLint: **Yes**
+- Use Tailwind CSS: **Yes**
+- Use the `src/` directory: **Yes**
+- Use App Router: **Yes**
+- Use Turbopack: **No**
+- Customize the import alias: **Yes**
+  - Enter: `@/*`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 2. Set Up Clerk
 
-## Learn More
+#### a) Create a Clerk Application
 
-To learn more about Next.js, take a look at the following resources:
+1. Go to the [Clerk Dashboard](https://clerk.dev/).
+2. Create a new application and note down the `PUBLISHABLE_KEY` and `SECRET_KEY`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+#### b) Install Clerk in Your Project
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Run the following command to install the Clerk SDK:
 
-## Deploy on Vercel
+```bash
+bun install @clerk/nextjs
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+#### c) Configure Environment Variables
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Add the following keys to your `.env.local` file:
 
+```env
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_YOUR_CLERK_PUBLISHABLE_KEY
+CLERK_SECRET_KEY=sk_test_YOUR_CLERK_SECRET_KEY
+```
 
+#### d) Create a `middleware.ts` File
 
+Create a `middleware.ts` file in the `src/` directory and add:
 
-
-
-
-
-
-# Steps to follow ::
-
-1. To create a Next.js application, open the terminal and type
-   bun create next-app <app_name>
-Would you like to use TypeScript? No / Yes  (yes)
-Would you like to use ESLint? No / Yes   (yes)
-Would you like to use Tailwind CSS? No / Yes   (yes)
-Would you like your code inside a `src/` directory? No / Yes   (yes)
-Would you like to use App Router? (recommended) No / Yes   (yes)
-Would you like to use Turbopack for `next dev`?  No / Yes   (no)
-Would you like to customize the import alias (`@/*` by default)? No / Yes   (yes)
-What import alias would you like configured? @/*  (press enter)
-
-2. To set up Clerk
-
-a) First create a new application in Clerk and then type the following in the terminal::
-b) bun install @clerk/nextjs
-c) set up your env variables...write these 2 lines NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_ZmlybS1yb2Jpbi0zLmNsZXJrLmFjY291bnRzLmRldiQ
-CLERK_SECRET_KEY=sk_test_jgrnva9YCmP4HbrBhVmuMPE12eMXp1YqykxICTszhJ
-
-d) create a middleware.ts file in the src/ directory and write 
+```typescript
 import { clerkMiddleware } from "@clerk/nextjs/server";
 
 export default clerkMiddleware();
 
 export const config = {
   matcher: [
-    // Skip Next.js internals and all static files, unless found in search params
     '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
-    // Always run for API routes
     '/(api|trpc)(.*)',
   ],
 };
+```
 
-e) navigate to the layout.tsx file in the src/app/ directory and wrap the content in <ClerkProvider>...</ClerkProvider> tags after importing clerkProvider 
-              
-            from import { ClerkProvider } from "@clerk/nextjs";
-            .
-            .
-            .
-            return(
-              <ClerkProvider>
-                  ...
-                  ...
-                  ...<SignedOut>
+#### e) Wrap Your Application in the `ClerkProvider`
+
+In the `src/app/layout.tsx` file, wrap your application with the `ClerkProvider`:
+
+```tsx
+import { ClerkProvider, SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <ClerkProvider>
+      <html lang="en">
+        <body>
+          <SignedOut>
             <SignInButton />
           </SignedOut>
           <SignedIn>
             <UserButton />
           </SignedIn>
-              </ClerkProvider>
-            )
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
+  );
+}
+```
 
-3. To build a custom sign-in or sign-up page::
 
-   in the app directory create sign-in/[[...sign-in]]/page.tsx or sign-up/[[...sign-up]]/page.tsx
-4. to set up mongodb part
-bun i mongodb mongoose svix
+
+### 3. Custom Sign-In/Sign-Up Pages
+
+You can create custom pages for sign-in and sign-up by adding the following files in the `src/app` directory:
+
+- `sign-in/[[...sign-in]]/page.tsx`  
+- `sign-up/[[...sign-up]]/page.tsx`
+
+Add your custom logic and UI components to these files as needed.
+
+
+### 4. Set Up MongoDB with Mongoose
+
+#### a) Install MongoDB and Mongoose
+
+Run the following command to install MongoDB and Mongoose:
+
+```bash
+bun install mongodb mongoose svix
+```
+
+#### b) Connect to MongoDB
+
+Create a `src/db.ts` file and set up your MongoDB connection
+
+#### c) Example Schema
+
+Create a `src/models/user.model.ts` file for a basic User schema
+
+#### d) Actions
+
+Create a `src/actions/user.action.ts` file for basic User actions
+
+
+### 5. Run the Application
+
+Start your application with:
+
+```bash
+bun run dev
+```
+
+Your app is now running at `http://localhost:3000`.
+
+<br>
+
+## Project Structure
+
+```plaintext
+.
+├── src
+│   ├── actions
+│   │   └── user.action.ts 
+│   ├── app
+│   │   ├── api
+│   │   ├── layout.tsx       // App layout with ClerkProvider
+│   │   ├── page.tsx         // Default home page
+│   │   ├── sign-in          // Custom sign-in page
+│   │   ├── sign-up          // Custom sign-up page
+│   │   └── globals.css
+│   ├── db.ts
+│   ├── middleware.ts        // Clerk middleware
+│   ├── models
+│   │   └── user.model.ts          // Example Mongoose schema
+├── .env.local               // Environment variables
+└── README.md                // Documentation
+```
+
+<br>
+
+## Key Features
+
+- **Authentication:** Pre-built integration with Clerk for user sign-in, sign-up, and management.
+- **Database:** Easily integrate MongoDB with Mongoose.
+- **Styling:** Tailwind CSS is pre-configured for rapid UI development.
+- **Custom Pages:** Fully customizable authentication pages.
+- **Middleware:** Clerk middleware to protect routes seamlessly.
+
+<br>
+
+## Contribution
+
+Feel free to contribute to this project by submitting issues or pull requests. Let's make this starter kit even better!
+
+<br>
+
+## Contact
+
+parnaroychowdhury2020@gmail.com
+
+
+
