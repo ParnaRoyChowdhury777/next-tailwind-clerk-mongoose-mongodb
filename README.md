@@ -1,6 +1,6 @@
 # Starter Authentication Kit with Next.js, Tailwind CSS, Clerk and MongoDB using Mongoose
 
-This is a complete starter kit for building authentication-powered applications using **Next.js**, **Tailwind CSS**, **Clerk** and **MongoDB** with **Mongoose** for database management. It comes pre-configured with user authentication, database integration, and a customizable UI to help you get started quickly.
+This is a complete starter template for building authentication-powered applications using **Next.js**, **Tailwind CSS**, **Clerk** and **MongoDB** with **Mongoose** for database management. It comes pre-configured with user authentication, database integration, and a customizable UI to help you get started quickly.
 
 <br>
 
